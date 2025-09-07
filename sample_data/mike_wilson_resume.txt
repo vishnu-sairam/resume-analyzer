@@ -1,0 +1,63 @@
+MIKE WILSON
+Frontend Developer
+Email: mike.wilson@email.com
+Phone: (555) 456-7890
+LinkedIn: linkedin.com/in/mikewilson
+Portfolio: mikewilson.dev
+
+PROFESSIONAL SUMMARY
+Creative and detail-oriented frontend developer with 2 years of experience building 
+responsive and user-friendly web applications. Passionate about creating exceptional 
+user experiences through clean code and modern design principles.
+
+WORK EXPERIENCE
+
+Frontend Developer | WebCraft Studios | 2022 - Present
+• Develop responsive web applications using React, Vue.js, and modern CSS frameworks
+• Collaborate with UX/UI designers to implement pixel-perfect designs
+• Optimize application performance resulting in 30% faster load times
+• Maintain and update existing codebases with modern best practices
+
+Junior Frontend Developer | Digital Agency Pro | 2021 - 2022
+• Built landing pages and marketing websites using HTML, CSS, and JavaScript
+• Implemented responsive designs for mobile and desktop platforms
+• Worked with content management systems and e-commerce platforms
+• Participated in client meetings and requirement gathering sessions
+
+EDUCATION
+
+Bachelor of Fine Arts in Web Design
+Art Institute of Technology | 2021
+Focus: Interactive Media and Web Development
+GPA: 3.7/4.0
+
+TECHNICAL SKILLS
+• Frontend Languages: HTML5, CSS3, JavaScript (ES6+), TypeScript
+• Frameworks & Libraries: React, Vue.js, Angular, Next.js
+• Styling: Sass, Less, Styled Components, Tailwind CSS
+• Build Tools: Webpack, Vite, Parcel, Babel
+• Version Control: Git, GitHub, GitLab
+• Design Tools: Figma, Adobe XD, Sketch
+
+SOFT SKILLS
+• Creative Problem Solving
+• Attention to Detail
+• Client Communication
+• Adaptability
+• Continuous Learning
+
+PROJECTS
+
+E-Learning Platform
+• Developed interactive learning management system with real-time progress tracking
+• Implemented drag-and-drop course builder and video streaming capabilities
+• Technologies: React, Redux, WebRTC, Node.js, MongoDB
+
+Portfolio Website Builder
+• Created customizable portfolio website builder with drag-and-drop interface
+• Features include theme customization, SEO optimization, and analytics integration
+• Technologies: Vue.js, Nuxt.js, Firebase, Stripe API
+
+CERTIFICATIONS
+• Google UX Design Certificate (2022)
+• FreeCodeCamp Frontend Development Certification (2021)

@@ -1,0 +1,73 @@
+JANE SMITH
+Senior Data Scientist
+Email: jane.smith@email.com
+Phone: (555) 987-6543
+LinkedIn: linkedin.com/in/janesmith
+Portfolio: janesmith-analytics.com
+
+PROFESSIONAL SUMMARY
+Experienced data scientist with 5 years of expertise in machine learning, statistical analysis, 
+and big data processing. Proven track record of delivering actionable insights that drive 
+business growth and operational efficiency.
+
+WORK EXPERIENCE
+
+Senior Data Scientist | DataCorp Solutions | 2022 - Present
+• Lead machine learning projects that improved customer retention by 25%
+• Developed predictive models using Python, R, and TensorFlow
+• Collaborated with product teams to implement data-driven decision making
+• Mentored junior data scientists and conducted technical training sessions
+
+Data Scientist | AnalyticsPro | 2020 - 2022
+• Built and deployed machine learning models for fraud detection
+• Analyzed large datasets using SQL, Python, and Apache Spark
+• Created interactive dashboards using Tableau and Power BI
+• Presented findings to executive leadership and stakeholders
+
+Data Analyst | BusinessInsights Inc. | 2019 - 2020
+• Performed statistical analysis on customer behavior data
+• Created automated reporting systems using Python and SQL
+• Identified trends and patterns that led to 15% increase in sales
+
+EDUCATION
+
+Master of Science in Data Science
+Stanford University | 2019
+Thesis: "Deep Learning Applications in Natural Language Processing"
+
+Bachelor of Science in Mathematics
+UC Berkeley | 2017
+Minor: Computer Science
+GPA: 3.9/4.0
+
+TECHNICAL SKILLS
+• Programming Languages: Python, R, SQL, Scala
+• Machine Learning: TensorFlow, PyTorch, Scikit-learn, XGBoost
+• Data Processing: Pandas, NumPy, Apache Spark, Hadoop
+• Visualization: Matplotlib, Seaborn, Tableau, Power BI
+• Cloud Platforms: AWS, Google Cloud, Azure
+• Databases: PostgreSQL, MongoDB, Redis
+
+SOFT SKILLS
+• Analytical Thinking
+• Strategic Planning
+• Presentation Skills
+• Mentoring
+• Cross-functional Collaboration
+
+PROJECTS
+
+Customer Churn Prediction Model
+• Developed ensemble model achieving 92% accuracy in predicting customer churn
+• Implemented real-time scoring system using AWS SageMaker
+• Resulted in $2M annual savings through targeted retention campaigns
+
+Recommendation Engine
+• Built collaborative filtering system for e-commerce platform
+• Increased click-through rates by 40% and conversion rates by 18%
+• Technologies: Python, TensorFlow, Apache Kafka, Redis
+
+CERTIFICATIONS
+• AWS Certified Machine Learning Specialty (2023)
+• Google Cloud Professional Data Engineer (2022)
+• Certified Analytics Professional (CAP) (2021)

@@ -1,0 +1,54 @@
+services:
+  # Backend API Service
+  - type: web
+    name: resume-analyzer-backend
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DB_HOST
+        fromDatabase:
+          name: resume-analyzer-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: resume-analyzer-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: resume-analyzer-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: resume-analyzer-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: resume-analyzer-db
+          property: password
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        value: https://resume-analyzer-frontend.onrender.com
+
+  # Frontend Static Site
+  - type: web
+    name: resume-analyzer-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://resume-analyzer-backend.onrender.com
+
+databases:
+  # PostgreSQL Database
+  - name: resume-analyzer-db
+    plan: free

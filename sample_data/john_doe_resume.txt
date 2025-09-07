@@ -1,0 +1,62 @@
+JOHN DOE
+Software Engineer
+Email: john.doe@email.com
+Phone: (555) 123-4567
+LinkedIn: linkedin.com/in/johndoe
+Portfolio: johndoe.dev
+
+PROFESSIONAL SUMMARY
+Passionate software engineer with 3 years of experience in full-stack development. 
+Skilled in React, Node.js, and cloud technologies. Strong problem-solving abilities 
+and experience working in agile environments.
+
+WORK EXPERIENCE
+
+Software Engineer | TechCorp Inc. | 2021 - Present
+• Developed and maintained web applications using React and Node.js
+• Collaborated with cross-functional teams to deliver high-quality software solutions
+• Implemented RESTful APIs and database optimization techniques
+• Participated in code reviews and mentored junior developers
+
+Junior Developer | StartupXYZ | 2020 - 2021
+• Built responsive web interfaces using HTML, CSS, and JavaScript
+• Worked with PostgreSQL databases and implemented data validation
+• Contributed to agile development processes and sprint planning
+
+EDUCATION
+
+Bachelor of Science in Computer Science
+University of Technology | 2020
+GPA: 3.8/4.0
+Relevant Coursework: Data Structures, Algorithms, Database Systems, Software Engineering
+
+TECHNICAL SKILLS
+• Programming Languages: JavaScript, Python, Java, SQL
+• Frontend: React, HTML5, CSS3, Bootstrap
+• Backend: Node.js, Express.js, REST APIs
+• Databases: PostgreSQL, MongoDB
+• Tools: Git, Docker, AWS, VS Code
+• Testing: Jest, Mocha, Cypress
+
+SOFT SKILLS
+• Team Collaboration
+• Problem Solving
+• Communication
+• Time Management
+• Leadership
+
+PROJECTS
+
+E-Commerce Platform
+• Built a full-stack e-commerce application using React and Node.js
+• Implemented user authentication, payment processing, and inventory management
+• Technologies: React, Node.js, PostgreSQL, Stripe API
+
+Task Management App
+• Developed a collaborative task management application
+• Features include real-time updates, file sharing, and team collaboration
+• Technologies: React, Socket.io, MongoDB, Express.js
+
+CERTIFICATIONS
+• AWS Certified Developer Associate (2022)
+• Google Cloud Professional Developer (2021)
