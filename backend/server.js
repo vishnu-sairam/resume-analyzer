@@ -105,8 +105,9 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Error handling middleware
-app.use((err, req, res) => {
-  console.error('Error:', err.stack);
+// Express error handler must have 4 params: (err, req, res, next)
+app.use((err, req, res, next) => {
+  console.error('Error:', err && err.stack ? err.stack : err);
 
   // Handle multer file size limit error
   if (err.code === 'LIMIT_FILE_SIZE') {
@@ -116,10 +117,26 @@ app.use((err, req, res) => {
   }
 
   // Handle other errors
-  res.status(500).json({
+  const payload = {
     error: 'Internal server error',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong!',
-  });
+    message: process.env.NODE_ENV === 'development' && err ? err.message : 'Something went wrong!',
+  };
+
+  if (res && typeof res.status === 'function') {
+    return res.status(500).json(payload);
+  }
+
+  // Fallback for unexpected response objects
+  if (res && typeof res.writeHead === 'function') {
+    res.writeHead(500, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify(payload));
+    return;
+  }
+
+  console.error('Warning: Unable to send HTTP response from error handler.');
+  if (typeof next === 'function') {
+    return next(err);
+  }
 });
 
 // Handle unhandled promise rejections
