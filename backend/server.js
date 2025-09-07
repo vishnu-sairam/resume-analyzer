@@ -143,47 +143,55 @@ app.use((err, req, res, next) => {
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
   console.error('Unhandled Rejection:', err);
-  // Close server & exit process
-  // server.close(() => process.exit(1));
-});
-
-// Initialize DB then start server
-let server;
-(async () => {
-  try {
-    const isConnected = await testConnection();
-    console.log(`Database connection: ${isConnected ? '✅ Connected' : '❌ Disconnected'}`);
-    await initDB();
-  } catch (err) {
-    console.error('Startup DB error:', err.message);
-  }
-
-  server = app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-})();
-
-// Handle server errors
-server.on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.error(
-      `❌ Port ${PORT} is already in use. Please try a different port or stop the process using this port.`
-    );
-    console.log(
-      `💡 You can change the port in your .env file or use: netstat -ano | findstr :${PORT} to find the process using this port.`
-    );
-  } else {
-    console.error('Server error:', err);
-  }
   process.exit(1);
 });
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
-  // Close server & exit process
-  server.close(() => process.exit(1));
+  process.exit(1);
 });
+
+// Start server with database initialization
+(async () => {
+  try {
+    // Initialize database before starting the server
+    await initDB();
+    console.log('✅ Database initialized successfully');
+    
+    // Start the server
+    const server = app.listen(PORT, () => {
+      const host = server.address().address;
+      const port = server.address().port;
+      console.log(`Server is running on http://${host}:${port}`);
+      console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+      
+      // Test database connection
+      testConnection()
+        .then(() => console.log('✅ Database connection successful'))
+        .catch(error => console.error('❌ Database connection error:', error));
+    });
+    
+    // Handle server errors
+    server.on('error', (error) => {
+      if (error.code === 'EADDRINUSE') {
+        console.error(
+          `❌ Port ${PORT} is already in use. Please try a different port or stop the process using this port.`
+        );
+        console.log(
+          `💡 You can change the port in your .env file or use: netstat -ano | findstr :${PORT} to find the process using this port.`
+        );
+      } else {
+        console.error('❌ Server error:', error);
+      }
+      process.exit(1);
+    });
+    
+  } catch (error) {
+    console.error('❌ Failed to initialize database:', error);
+    process.exit(1);
+  }
+})();
 
 // Handle SIGTERM
 process.on('SIGTERM', () => {
