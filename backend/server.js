@@ -8,18 +8,13 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Configure environment variables with explicit path
-const envPath = path.resolve(__dirname, '.env');
-console.log('Loading environment variables from:', envPath);
-
-const envResult = config({ path: envPath });
+// Configure environment variables. On Render, variables come from the environment,
+// so absence of a local .env file should not be fatal.
+const envResult = config();
 if (envResult.error) {
-  console.error('Failed to load .env file:', envResult.error);
-  process.exit(1);
+  console.warn('No local .env file found. Falling back to process environment.');
 }
-
-console.log('Environment variables loaded successfully');
-console.log('GOOGLE_API_KEY exists:', !!process.env.GOOGLE_API_KEY);
+console.log('GOOGLE_API_KEY present:', Boolean(process.env.GOOGLE_API_KEY));
 
 // Now import other dependencies
 import express from 'express';
@@ -75,9 +70,7 @@ app.get('/api/debug/env', (req, res) => {
 // Debug endpoint to list available models
 app.get('/api/debug/models', async (req, res) => {
   try {
-    const genAI = new GoogleGenerativeAI(
-      process.env.GOOGLE_API_KEY || 'AIzaSyCz7QpS0ugZFLDMLbKt4Eyks-0xKw4nEfU'
-    );
+    const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '');
     genAI.getGenerativeModel({ model: 'gemini-pro' });
 
     // This is a workaround since listModels might not be directly available
