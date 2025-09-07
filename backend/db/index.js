@@ -1,6 +1,13 @@
 import pg from 'pg';
 const { Pool } = pg;
 
+// Determine whether to use SSL (required by many managed DBs like Render)
+const shouldUseSsl =
+  (process.env.DB_SSL && process.env.DB_SSL.toLowerCase() === 'true') ||
+  process.env.RENDER === 'true' ||
+  process.env.PGSSLMODE === 'require' ||
+  process.env.PGSSLMODE === 'require';
+
 // Create a connection pool
 export const pool = new Pool({
   user: process.env.DB_USER || 'postgres', // Default to 'postgres' if not set
@@ -11,6 +18,7 @@ export const pool = new Pool({
   max: 20, // Maximum number of clients in the pool
   idleTimeoutMillis: 30000, // How long a client is allowed to remain idle before being closed
   connectionTimeoutMillis: 2000, // How long to wait when connecting a new client
+  ssl: shouldUseSsl ? { rejectUnauthorized: false } : false,
 });
 
 // Handle connection errors
