@@ -1,14 +1,8 @@
 import pg from 'pg';
-import { fileURLToPath } from 'url';
-import path from 'path';
-import { promises as fs } from 'fs';
 import dotenv from 'dotenv';
 
 // Load environment variables
 dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Database configuration
 const pool = new pg.Pool({

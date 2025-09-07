@@ -1,18 +1,10 @@
-import { promises as fs } from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { v4 as uuidv4 } from 'uuid';
 import pdf from 'pdf-parse/lib/pdf-parse.js';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { query, pool } from '../db/index.js';
+import { query } from '../db/index.js';
 import dotenv from 'dotenv';
 
 // Load environment variables
 dotenv.config();
-
-// ES module equivalent of __dirname
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Configuration
 const config = {
@@ -399,7 +391,19 @@ export const getAllResumes = async (req, res, next) => {
         file_name, 
         name,
         email,
+        phone,
+        linkedin_url,
+        portfolio_url,
+        summary,
+        work_experience,
+        education,
+        technical_skills,
+        soft_skills,
+        projects,
+        certifications,
         resume_rating,
+        improvement_areas,
+        upskill_suggestions,
         uploaded_at
       FROM resumes 
       ${whereClause}

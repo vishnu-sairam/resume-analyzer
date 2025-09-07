@@ -1,16 +1,9 @@
 import pg from 'pg';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { promises as fs } from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import dotenv from 'dotenv';
 
 // Load environment variables
-dotenv.config({ path: path.join(process.cwd(), '.env') });
-
-// Get the current directory in ES module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+dotenv.config();
 
 // Database configuration
 const pool = new pg.Pool({

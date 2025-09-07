@@ -33,7 +33,7 @@ const HistoryViewer = () => {
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(3);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [selectedResume, setSelectedResume] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
   const [error, setError] = useState('');
@@ -146,6 +146,22 @@ const HistoryViewer = () => {
         <Typography variant="body1" paragraph>
           View and manage your previously analyzed resumes.
         </Typography>
+        <Box
+          sx={{
+            mb: 3,
+            p: 2,
+            backgroundColor: 'info.light',
+            borderRadius: 1,
+            border: '1px solid',
+            borderColor: 'info.main',
+          }}
+        >
+          <Typography variant="body2" color="info.dark">
+            💡 <strong>Tip:</strong> Click "View Details" to see comprehensive analysis including
+            Key Highlights, Experience, Education, Skills, Projects, Certifications, AI-powered
+            upskill suggestions, and detailed improvement recommendations.
+          </Typography>
+        </Box>
 
         <TableContainer component={Paper} variant="outlined">
           <Table>
@@ -153,9 +169,6 @@ const HistoryViewer = () => {
               <TableRow>
                 <TableCell>Name</TableCell>
                 <TableCell>Contact</TableCell>
-                <TableCell>Experience</TableCell>
-                <TableCell>Education</TableCell>
-                <TableCell>Skills</TableCell>
                 <TableCell>Rating</TableCell>
                 <TableCell>Date</TableCell>
                 <TableCell align="right">Actions</TableCell>
@@ -184,58 +197,6 @@ const HistoryViewer = () => {
                     )}
                   </TableCell>
                   <TableCell>
-                    {resume.work_experience?.length > 0 ? (
-                      <Box>
-                        <Typography variant="body2" fontWeight="medium">
-                          {resume.work_experience[0]?.jobTitle || resume.work_experience[0]?.role || 'N/A'}
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">
-                          {resume.work_experience[0]?.company || 'N/A'}
-                        </Typography>
-                        {resume.work_experience.length > 1 && (
-                          <Typography variant="caption" color="primary" display="block">
-                            +{resume.work_experience.length - 1} more
-                          </Typography>
-                        )}
-                      </Box>
-                    ) : (
-                      'N/A'
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {resume.education?.length > 0 ? (
-                      <Box>
-                        <Typography variant="body2" fontWeight="medium">
-                          {resume.education[0]?.degree || 'N/A'}
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">
-                          {resume.education[0]?.institution || 'N/A'}
-                        </Typography>
-                        {resume.education.length > 1 && (
-                          <Typography variant="caption" color="primary" display="block">
-                            +{resume.education.length - 1} more
-                          </Typography>
-                        )}
-                      </Box>
-                    ) : (
-                      'N/A'
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, maxWidth: 200 }}>
-                      {resume.technical_skills?.slice(0, 3).map((skill, i) => (
-                        <Chip key={i} label={skill} size="small" />
-                      ))}
-                      {resume.technical_skills?.length > 3 && (
-                        <Chip
-                          label={`+${resume.technical_skills.length - 3}`}
-                          size="small"
-                          variant="outlined"
-                        />
-                      )}
-                    </Box>
-                  </TableCell>
-                  <TableCell>
                     {resume.resume_rating ? (
                       <Chip
                         label={`${resume.resume_rating}/10`}
@@ -256,24 +217,29 @@ const HistoryViewer = () => {
                     {resume.uploaded_at ? formatDate(resume.uploaded_at) : 'N/A'}
                   </TableCell>
                   <TableCell align="right">
-                    <Tooltip title="View Details">
-                      <IconButton
-                        size="small"
-                        onClick={() => handleViewResume(resume)}
-                        color="primary"
-                      >
-                        <ViewIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete">
-                      <IconButton
-                        size="small"
-                        onClick={() => handleDeleteResume(resume.id)}
-                        color="error"
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Tooltip title="View Comprehensive Analysis - Key Highlights, Experience, Education, Skills, Projects, Certifications, AI Suggestions & Improvement Areas">
+                        <Button
+                          size="small"
+                          onClick={() => handleViewResume(resume)}
+                          color="primary"
+                          variant="outlined"
+                          startIcon={<ViewIcon />}
+                          sx={{ minWidth: 'auto', px: 1 }}
+                        >
+                          View Details
+                        </Button>
+                      </Tooltip>
+                      <Tooltip title="Delete Resume">
+                        <IconButton
+                          size="small"
+                          onClick={() => handleDeleteResume(resume.id)}
+                          color="error"
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      </Tooltip>
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))}
@@ -282,7 +248,7 @@ const HistoryViewer = () => {
         </TableContainer>
 
         <TablePagination
-          rowsPerPageOptions={[3, 5, 10]}
+          rowsPerPageOptions={[5, 10, 25]}
           component="div"
           count={resumes.length}
           rowsPerPage={rowsPerPage}
@@ -293,27 +259,50 @@ const HistoryViewer = () => {
       </Paper>
 
       {/* Resume Details Dialog */}
-      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="md" fullWidth scroll="paper">
-        <DialogTitle sx={{ m: 0, p: 2 }}>
-          Resume Details
-          <IconButton
-            aria-label="close"
-            onClick={handleCloseDialog}
-            sx={{
-              position: 'absolute',
-              right: 8,
-              top: 8,
-              color: theme => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
+      <Dialog open={openDialog} onClose={handleCloseDialog} maxWidth="lg" fullWidth scroll="paper">
+        <DialogTitle sx={{ m: 0, p: 2, backgroundColor: 'primary.main', color: 'white' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Box>
+              <Typography variant="h6" component="div">
+                📄 Resume Analysis Details
+              </Typography>
+              {selectedResume && (
+                <Typography variant="subtitle2" sx={{ opacity: 0.9 }}>
+                  {selectedResume.name} • {selectedResume.email} • Rating:{' '}
+                  {selectedResume.resume_rating}/10
+                </Typography>
+              )}
+            </Box>
+            <IconButton
+              aria-label="close"
+              onClick={handleCloseDialog}
+              sx={{
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                },
+              }}
+            >
+              <CloseIcon />
+            </IconButton>
+          </Box>
         </DialogTitle>
-        <DialogContent dividers>
-          {selectedResume && <AnalysisResult data={selectedResume} />}
+        <DialogContent dividers sx={{ p: 0 }}>
+          {selectedResume && (
+            <Box sx={{ p: 2 }}>
+              <AnalysisResult data={selectedResume} />
+            </Box>
+          )}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Close</Button>
+        <DialogActions sx={{ p: 2, backgroundColor: 'grey.50' }}>
+          <Button
+            onClick={handleCloseDialog}
+            variant="contained"
+            color="primary"
+            startIcon={<CloseIcon />}
+          >
+            Close Details
+          </Button>
         </DialogActions>
       </Dialog>
     </Box>

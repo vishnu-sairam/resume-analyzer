@@ -2,6 +2,7 @@
 import { config } from 'dotenv';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Get directory name in ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -77,7 +78,7 @@ app.get('/api/debug/models', async (req, res) => {
     const genAI = new GoogleGenerativeAI(
       process.env.GOOGLE_API_KEY || 'AIzaSyCz7QpS0ugZFLDMLbKt4Eyks-0xKw4nEfU'
     );
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    genAI.getGenerativeModel({ model: 'gemini-pro' });
 
     // This is a workaround since listModels might not be directly available
     res.json({
@@ -111,7 +112,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // Error handling middleware
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   console.error('Error:', err.stack);
 
   // Handle multer file size limit error
