@@ -20,6 +20,7 @@ console.log('GOOGLE_API_KEY present:', Boolean(process.env.GOOGLE_API_KEY));
 import express from 'express';
 import cors from 'cors';
 import { testConnection } from './db/index.js';
+import { initDB } from './db/init.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -146,17 +147,21 @@ process.on('unhandledRejection', (err) => {
   // server.close(() => process.exit(1));
 });
 
-// Start server
-const server = app.listen(PORT, async () => {
-  console.log(`Server running on port ${PORT}`);
-
+// Initialize DB then start server
+let server;
+(async () => {
   try {
     const isConnected = await testConnection();
     console.log(`Database connection: ${isConnected ? '✅ Connected' : '❌ Disconnected'}`);
-  } catch (error) {
-    console.error('Database connection error:', error.message);
+    await initDB();
+  } catch (err) {
+    console.error('Startup DB error:', err.message);
   }
-});
+
+  server = app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+})();
 
 // Handle server errors
 server.on('error', (err) => {

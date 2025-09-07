@@ -1,25 +1,24 @@
 import pg from 'pg';
 const { Pool } = pg;
 
-// Determine whether to use SSL (required by many managed DBs like Render)
-const shouldUseSsl =
-  (process.env.DB_SSL && process.env.DB_SSL.toLowerCase() === 'true') ||
-  process.env.RENDER === 'true' ||
-  process.env.PGSSLMODE === 'require' ||
-  process.env.PGSSLMODE === 'require';
+// Prefer single DATABASE_URL when provided (Render)
+const databaseUrl = process.env.DATABASE_URL;
+const shouldUseSsl = true; // Render requires SSL
 
 // Create a connection pool
-export const pool = new Pool({
-  user: process.env.DB_USER || 'postgres', // Default to 'postgres' if not set
-  host: process.env.DB_HOST || 'localhost', // Default to 'localhost' if not set
-  database: process.env.DB_DATABASE || 'resume_analyzer',
-  password: process.env.DB_PASSWORD || 'Vishnu@123', // Default password if not set
-  port: parseInt(process.env.DB_PORT) || 5432, // Default to 5432 if not set
-  max: 20, // Maximum number of clients in the pool
-  idleTimeoutMillis: 30000, // How long a client is allowed to remain idle before being closed
-  connectionTimeoutMillis: 2000, // How long to wait when connecting a new client
-  ssl: shouldUseSsl ? { rejectUnauthorized: false } : false,
-});
+export const pool = databaseUrl
+  ? new Pool({ connectionString: databaseUrl, ssl: { rejectUnauthorized: false } })
+  : new Pool({
+      user: process.env.DB_USER || 'postgres',
+      host: process.env.DB_HOST || 'localhost',
+      database: process.env.DB_DATABASE || 'resume_analyzer',
+      password: process.env.DB_PASSWORD || 'postgres',
+      port: parseInt(process.env.DB_PORT) || 5432,
+      max: 20,
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 2000,
+      ssl: shouldUseSsl ? { rejectUnauthorized: false } : false,
+    });
 
 // Handle connection errors
 pool.on('error', (err) => {
